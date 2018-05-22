@@ -175,6 +175,12 @@ namespace ofxKinectForWindows2 {
 			}
 			ofPopMatrix();
 		}
+		
+		//----------
+		template OFXKFW2_BaseImageSimple_TEMPLATE_ARGS
+		long long BaseImage OFXKFW2_BaseImageSimple_TEMPLATE_ARGS_TRIM::getLastFrameTime() const {
+			return this->lastFrameTime;
+		}
 
 #pragma mark BaseImageSimple
 		//----------
@@ -189,11 +195,13 @@ namespace ofxKinectForWindows2 {
 				}
 				
 				if (relativeTime > this->lastFrameTime) {
-					relativeTime = this->lastFrameTime;
+					this->lastFrameTime = relativeTime;
 				} 
 				else {
 					return;
 				}
+
+				
 
 				//allocate pixels and texture if we need to
 				if (FAILED(frame->get_FrameDescription(&frameDescription))) {
